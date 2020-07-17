@@ -56,6 +56,26 @@ public class CustomerInformation {
 	@Column(name="register_date")
 	private LocalDate registerDate;
 	
+	public CustomerInformation() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public CustomerInformation(@Size(min = 10, max = 64) String emailAddress, @Size(min = 8, max = 30) String fullName,
+			@Size(min = 8, max = 16) String password, @Size(min = 10, max = 15) String phoneNumber,
+			@Size(min = 3, max = 32) String city, @Size(min = 3, max = 24) Integer zipCode,
+			@Size(min = 3, max = 64) String country, LocalDate registerDate) {
+		super();
+		this.emailAddress = emailAddress;
+		this.fullName = fullName;
+		this.password = password;
+		this.phoneNumber = phoneNumber;
+		this.city = city;
+		this.zipCode = zipCode;
+		this.country = country;
+		this.registerDate = registerDate;
+	}
+
 	public int getCustomerId() {
 		return customerId;
 	}

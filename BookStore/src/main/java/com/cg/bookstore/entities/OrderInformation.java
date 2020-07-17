@@ -17,7 +17,7 @@ import org.hibernate.annotations.DynamicUpdate;
 @DynamicInsert
 @DynamicUpdate
 @Table(name="bookstore_order")
-public class Order {
+public class OrderInformation {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seq")
@@ -47,6 +47,23 @@ public class Order {
 	
 	@Column(name="payment_method")
 	private String paymentMethod;
+
+	public OrderInformation() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public OrderInformation(CustomerInformation customerDetails, String shippingAddress, int quantity, float subTotal, float total,
+			String orderStatus, String paymentMethod) {
+		super();
+		this.customerDetails = customerDetails;
+		this.shippingAddress = shippingAddress;
+		this.quantity = quantity;
+		this.subTotal = subTotal;
+		this.total = total;
+		this.orderStatus = orderStatus;
+		this.paymentMethod = paymentMethod;
+	}
 
 	public int getOrderId() {
 		return orderId;
