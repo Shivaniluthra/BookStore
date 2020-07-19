@@ -31,7 +31,7 @@ import com.cg.bookStore.service.OrderServiceImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@RunWith(SpringRunner.class)
+@RunWith(SpringRunner.class)			
 @WebMvcTest(value = OrderController.class)
 public class OrderControllerTest {
 	
@@ -59,13 +59,13 @@ public class OrderControllerTest {
 	     String inputInJson = this.mapToJson(mockOrder);
 	     String uri= "/addOrder";
 	     
-	     Mockito.when(orderService.addOrder(Mockito.any(OrderInformation.class)))
+	     Mockito.when(orderService.addOrder(Mockito.any(OrderInformation.class)))	//return mockOrder when addOrder() is called
 	     .thenReturn(mockOrder);
 	   
 	     RequestBuilder reqBuilder= MockMvcRequestBuilders
 	    		 .post(uri)
-	    		 .accept(MediaType.APPLICATION_JSON).content(inputInJson)
-	    		 .contentType(MediaType.APPLICATION_JSON);
+	    		 .accept(MediaType.APPLICATION_JSON).content(inputInJson)			//accepts JSON
+	    		 .contentType(MediaType.APPLICATION_JSON);							//returns JSON
 	     
 	     MvcResult result = mockMvc.perform(reqBuilder).andReturn();
 	     MockHttpServletResponse response = result.getResponse();
@@ -88,7 +88,7 @@ public class OrderControllerTest {
 		 mockOrder.setOrderStatus("Shipped");
 	     mockOrder.setShippingAddress("M-266");
 		String inputInJson = this.mapToJson(mockOrder);
-		String uri= "/searchOrder/1";
+		String uri= "/searchOrder/"+id;
 	     
 	     Mockito.when(orderService.viewOrderById(Mockito.anyInt())).thenReturn(mockOrder);
 	     
@@ -109,31 +109,18 @@ public class OrderControllerTest {
 
 	@Test
 	public void neagtiveTestSearchOrderById() throws Exception {
-		OrderInformation mockOrder= new OrderInformation();
-		 CustomerInformation custInfo= new CustomerInformation();
-		 custInfo.setCustomerId(1);
-		 mockOrder.setOrderId(1);
-		 mockOrder.setCustomer(custInfo);
-		 mockOrder.setPaymentMethod("COD");
-		 mockOrder.setQuantity(2);
-		 mockOrder.setTotalPrice(300);
-		 mockOrder.setOrderStatus("Shipped");
-	     mockOrder.setShippingAddress("M-266");
-		String inputInJson = this.mapToJson(mockOrder);
 		String uri= "/searchOrder/1";
 	     
-	     Mockito.when(orderService.viewOrderById(4)).thenReturn(mockOrder);
+	     Mockito.when(orderService.viewOrderById(Mockito.anyInt())).thenReturn(null);
 	     
 	     RequestBuilder reqBuilder= MockMvcRequestBuilders
 	    		 .get(uri)
-	    		 .accept(MediaType.APPLICATION_JSON).content(inputInJson)
 	    		 .contentType(MediaType.APPLICATION_JSON);
 	     
 	     MvcResult result = mockMvc.perform(reqBuilder).andReturn();
 	     MockHttpServletResponse response = result.getResponse();
-	     
-	     String outputInJson = response.getContentAsString();
-	     assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+	    
+	     assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
 	}
 	
 	private String mapToJson(Object obj) throws JsonProcessingException {

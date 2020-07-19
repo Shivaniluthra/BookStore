@@ -1,12 +1,10 @@
 package com.cg.bookStore.web;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,9 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.bookStore.entities.OrderInformation;
 import com.cg.bookStore.exceptions.NullArgumentException;
-import com.cg.bookStore.exceptions.RecordAlreadyPresentException;
-import com.cg.bookStore.exceptions.RecordNotFoundException;
-import com.cg.bookStore.service.OrderServiceImpl;
+import com.cg.bookStore.service.OrderServices;
 
 
 @RestController
@@ -26,7 +22,7 @@ import com.cg.bookStore.service.OrderServiceImpl;
 public class OrderController {
 	
 	@Autowired
-	OrderServiceImpl orderService;
+	OrderServices orderService;
 	
 	@PostMapping("/addOrder")
 	public ResponseEntity<OrderInformation> addOrder(@RequestBody OrderInformation order) {
