@@ -85,6 +85,36 @@ public class OrderInformation {
 	@JoinColumn(name="customer_id", referencedColumnName = "customer_id")
 	private CustomerInformation customer = new CustomerInformation();
 
+	
+	public OrderInformation(@Size(min = 8, max = 30) String recipientName,
+			@Size(min = 10, max = 15) String recipientPhoneNumber, @Size(min = 10, max = 128) String streetAddress,
+			@Size(min = 3, max = 32) String city, @Size(min = 3, max = 24) Integer zipCode,
+			@Size(min = 3, max = 64) String country, String shippingAddress, int quantity, float totalPrice,
+			String orderStatus, String paymentMethod, LocalDate orderDate, List<CartInformation> cart,
+			CustomerInformation customer) {
+		super();
+		this.recipientName = recipientName;
+		this.recipientPhoneNumber = recipientPhoneNumber;
+		this.streetAddress = streetAddress;
+		this.city = city;
+		this.zipCode = zipCode;
+		this.country = country;
+		this.shippingAddress = shippingAddress;
+		this.quantity = quantity;
+		this.totalPrice = totalPrice;
+		this.orderStatus = orderStatus;
+		this.paymentMethod = paymentMethod;
+		this.orderDate = orderDate;
+		this.cart = cart;
+		this.customer = customer;
+	}
+
+
+	public OrderInformation() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 
 	public int getOrderId() {
 		return orderId;
@@ -219,7 +249,7 @@ public class OrderInformation {
 		return cart;
 	}
 
-	public void setCartId(List<CartInformation> cart) {
+	public void setCart(List<CartInformation> cart) {
 		this.cart = cart;
 	}
 
@@ -231,5 +261,16 @@ public class OrderInformation {
 	public void setCustomer(CustomerInformation customer) {
 		this.customer = customer;
 	}
+
+
+	@Override
+	public String toString() {
+		return "OrderInformation [orderId=" + orderId + ", recipientName=" + recipientName + ", recipientPhoneNumber="
+				+ recipientPhoneNumber + ", streetAddress=" + streetAddress + ", city=" + city + ", zipCode=" + zipCode
+				+ ", country=" + country + ", shippingAddress=" + shippingAddress + ", quantity=" + quantity
+				+ ", totalPrice=" + totalPrice + ", orderStatus=" + orderStatus + ", paymentMethod=" + paymentMethod
+				+ ", orderDate=" + orderDate + ", cart=" + cart + ", customer=" + customer + "]";
+	}
+	
 	
 }

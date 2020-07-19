@@ -1,15 +1,13 @@
 package com.cg.bookStore.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.bookStore.dao.BookStoreDao;
 import com.cg.bookStore.dao.OrderDao;
-import com.cg.bookStore.entities.CartInformation;
-import com.cg.bookStore.entities.CustomerInformation;
 import com.cg.bookStore.entities.OrderInformation;
 import com.cg.bookStore.exceptions.RecordAlreadyPresentException;
 import com.cg.bookStore.exceptions.RecordNotFoundException;
@@ -19,26 +17,17 @@ public class OrderServiceImpl implements OrderServices {
 	
 	@Autowired
 	OrderDao orderDao;
+	
+	@Autowired
+	BookStoreDao bookDao;
 
 	@Override
-	public OrderInformation addOrder(OrderInformation order) {
+	public OrderInformation addOrder(OrderInformation order) throws RecordAlreadyPresentException {
 		Optional<OrderInformation> newOrder = orderDao.findById(order.getOrderId());
 		if(newOrder.isPresent()) {
-			throw new RecordAlreadyPresentException("Record already there");
+			throw new RecordAlreadyPresentException();
 		}
 		else {
-//			order.setCity(order.getCustomer().getCity());
-//			order.setCountry(order.getCustomer().getCountry());
-//			order.setShippingAddress(order.getCustomer().getAddress());
-//			order.setZipCode(order.getCustomer().getZipCode());
-//			order.setRecipientName(order.getCustomer().getFullName());
-//			int qty=0;
-//			int size = order.getCart().size();
-//			for(int i=0;i<size;i++) {
-//				qty = qty+ order.getCart().get(i).getQuantity();
-//			}
-//			order.setQuantity(qty);
-//			order.setTotalPrice();
 			orderDao.save(order);
 			return order;
 		}
@@ -48,7 +37,7 @@ public class OrderServiceImpl implements OrderServices {
 	public OrderInformation viewOrderById(int id) {
 		Optional<OrderInformation> order = orderDao.findById(id);
 		if(!order.isPresent()) {
-			throw new RecordNotFoundException("Record Not Found");
+			throw new RecordNotFoundException();
 		}
 		else
 			return order.get();
@@ -57,7 +46,22 @@ public class OrderServiceImpl implements OrderServices {
 
 	@Override
 	public Iterable<OrderInformation> listAllOrder() {
-		return orderDao.findAll();
+		Iterable<OrderInformation> list = orderDao.findAll();
+		if(list==null) {
+			throw new RecordNotFoundException();
+		}
+		else
+			return list;
+	}
+	
+	@Override
+	public List<OrderInformation> viewOrderByCustomerId(int customerId) {
+		List<OrderInformation> list = bookDao.viewOrderByCustomerId(customerId);
+		if(list==null) {
+			throw new RecordNotFoundException();
+		}
+		else
+			return list;
 	}
 
 	
