@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <header>
+    <img src="../assets/BookstoreLogo.png" alt="logo">
+    <ul>
+        <li><input type="text" /></li>
+        <li><input type="button" value="search" /></li>
+        <li><a routerLink='/myOrders/101'>Orders</a></li>
+        <li><a>Sign Out</a></li>
+        <li><a routerLink ='/cart/101'>Cart</a></li><br>
+        <span>Welcome,(User)</span>
+    </ul>
+  </header>
+  <main>
+   <section>
+      <section class="mx-auto p-2">
+         <h4 style="text-align: center;"><b>My Order History</b></h4>
+         <table class="table table-dark" >
+         <tr>
+               <th style="height: 40px; width: 100px;">Order ID</th>
+               <th>Quantity</th>
+               <th>Total Price</th>
+               <th>Status</th>
+               <th>Order Date</th>
+               <th>Action</th>
+         </tr>
+         <tr *ngFor ="let order of orderList">
+            <td> {{ order.orderId }} </td>
+               <td> {{ order.quantity }} </td>
+               <td> {{ order.totalPrice}} </td>
+               <td> {{ order.orderStatus }} </td>
+               <td> {{ order.orderDate }} </td>
+               <td><a class="btn btn-info" (click)= "viewOrderById(order.orderId)">View Details</a></td>
+            </tr>
+         </table>
+      </section>
+      <div *ngIf="details">
+      <table id="tab" align="center">
+            <h4 style="text-align: center;"><b>Your Order ID: {{order.orderId}}</b></h4>
+            <tr>
+                  <td>Recipient Name</td>
+                  <td>{{order.recipientName}}</td>
+            </tr>
+            <tr>
+                  <td>Phone Number</td>
+                  <td>{{order.recipientPhoneNumber}}</td>
+            </tr>
+            <tr>
+                  <td>Shipping Address</td>
+                  <td>{{order.shippingAddress}}</td>
+            </tr>
+            <tr>
+                  <td>Quantity</td>
+                  <td>{{order.quantity}}</td>
+            </tr>
+            <tr>
+                  <td>Total Price</td>
+                  <td>{{order.totalPrice}}</td>
+            </tr>
+            <tr>
+                  <td>Order Status</td>
+                  <td>{{order.orderStatus}}</td>
+            </tr>
+            <tr>
+                  <td>Payment Method</td>
+                  <td>{{order.paymentMethod}}</td>
+            </tr>
+            <tr>
+                  <td>Order Date</td>
+                  <td>{{order.orderDate}}</td>
+            </tr>
+      </table>
+         <!-- <section class="container-fluid" *ngIf="details"  style="text-align: center;">
+         
+      <div class="row-1">
+               <div class="col-sm-4"><h5> Recipient Name</h5></div>
+               <div class="col-sm-8">{{order.recipientName}}</div>
+         </div>
+         <div class="row">
+               <div class="col-sm-4"><h5> Phone Number</h5></div>
+               <div class="col-sm-8">{{order.recipientPhoneNumber}}</div>
+         </div>
+         <div class="row">
+               <div class="col-sm-4"><h5> Shipping Address</h5></div>
+               <div class="col-sm-8">{{order.shippingAddress}}</div>
+         </div>
+         <div class="row">
+               <div class="col-sm-4"><h5> </h5></div>
+               <div class="col-sm-8">{{order.quantity}}</div>
+         </div>
+         <div class="row">
+               <div class="col-sm-4"><h5> </h5></div>
+               <div class="col-sm-8">{{order.totalPrice}}</div>
+         </div>
+         <div class="row">
+               <div class="col-sm-4"><h5> </h5></div>
+               <div class="col-sm-8">{{order.orderStatus}}</div>
+         </div>
+         <div class="row">
+               <div class="col-sm-4"><h5> Payment method</h5></div>
+               <div class="col-sm-8">{{order.paymentMethod}}</div>
+         </div>
+         <div class="row">
+               <div class="col-sm-4"><h5> Order Date</h5></div>
+               <div class="col-sm-8">{{order.orderDate}}</div>
+         </div> </section>-->
+         
+         <hr>
+         <h4 class="p-2">Ordered Books</h4>
+         <table class="table table-dark" id="center">
+            <thead>
+                <tr>
+                <th style="height: 40px; width: 100px;">No</th>
+                <th>Book</th>
+                <th>Author</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>SubTotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let cart of cartProducts; let i=index">
+                    <td>{{i+1}}</td>
+                    <td>{{cart.book.title}}</td>
+                    <td>{{cart.book.author}}</td>
+                    <td>{{cart.book.price}}</td>
+                    <td>{{cart.quantity}}</td>
+                    <td>{{cart.subTotal}}</td>
+                </tr>
+                <tr>
+                    <td colspan="4">TOTAL:</td>
+                    <td>{{quantity}}</td>
+                    <td>{{total}}</td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+   </section>
+   <br><br>
+   </main>
+   <footer>
+       <p>Copyright (c) 2020 by Evergreen Books Co., Ltd</p>
+   </footer>
+</body>
+</html>
+
+

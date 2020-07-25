@@ -39,6 +39,16 @@ public class CartInformation {
 	@JoinColumn(name="book_id", referencedColumnName = "book_id")
 	private BookInformation book=new BookInformation();
 
+	@Column(name="SubTotal")
+	private float subTotal;
+	
+	public float getSubTotal() {
+		return subTotal;
+	}
+
+	public void setSubTotal(float subTotal) {
+		this.subTotal = subTotal;
+	}
 	public int getCartId() {
 		return cartId;
 	}

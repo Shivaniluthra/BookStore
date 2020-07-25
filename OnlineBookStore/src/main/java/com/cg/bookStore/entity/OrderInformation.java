@@ -74,7 +74,7 @@ public class OrderInformation {
 	private String paymentMethod;
 	
 	@Column(name="order_date")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
+//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
 	private LocalDate orderDate;
 
 	@OneToMany(orphanRemoval = true, cascade = CascadeType.MERGE)

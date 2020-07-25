@@ -61,7 +61,9 @@ public class BookStoreServiceImpl implements BookStoreService{
 		}
 		else
 		{
+			float updatedSubtotal = quantity * cart.getBook().getPrice(); 
 			cart.setQuantity(quantity);
+			cart.setSubTotal(updatedSubtotal);
 			dao.updateCartQuantity(cart);
 		}
 		return "Cart Updated";		
@@ -69,7 +71,7 @@ public class BookStoreServiceImpl implements BookStoreService{
 	}
 	
 	@Override
-	public OrderInformation addOrder(OrderInformation order) throws RecordAlreadyPresentException {
+	public OrderInformation addOrder(OrderInformation order) {
 		Optional<OrderInformation> newOrder = orderDao.findById(order.getOrderId());
 		if(newOrder.isPresent()) {
 			throw new RecordAlreadyPresentException();
