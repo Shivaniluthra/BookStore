@@ -1,0 +1,9 @@
+insert into bookstore_book_category( CATEGORY_ID, CATEGORY_NAME) values(101, 'abcdef')
+
+insert into bookstore_book(book_id,author,description,isbn_number,last_update_time,price,publish_date,rating,title,category_id) values(1002,'murali','this book is a book written by ramesh how are you who are you i am fine what about you all these are not available in the above which is extraordinary things','hdui3',to_date('1999-MAR-26','yyyy-MON-dd'),550.0,to_date('1999-MAR-27','yyyy-MON-dd'),4,'how to run this',101);
+
+insert into bookstore_cart(cart_id,customer_id,quantity,sub_total,status,book_id) values(1001,101,1,'cart',550,1002)
+
+insert into bookstore_customer( CUSTOMER_ID, ADDRESS, CITY, COUNTRY, EMAIL, FULL_NAME, PASSWORD, PHONE_NO, REGISTER_DATE, ZIP_CODE) values(101,'near post office','hyd','ind','bpkavuri@gmail.com','abcdef ghijkl','Goodcode',9898989897,to_date('2019-MAR-27','yyyy-MON-dd'),522222)
+
+insert into bookstore_order(ORDER_ID, CITY, COUNTRY, ORDER_DATE, ORDER_STATUS, PAYMENT_METHOD, QUANTITY, RECIPIENT_NAME, RECIPIENT_PHONE_NO, SHIPPING_ADDRESS, STREET_ADDRESS, TOTAL_PRICE, ZIP_CODE, CUSTOMER_ID) values(1021,'Mumbai','India',CURRENT_TIMESTAMP,'Shipped','COD',5,'Jay','9871524352','M-23','Near Apolo Hospital',300,201003,101)
