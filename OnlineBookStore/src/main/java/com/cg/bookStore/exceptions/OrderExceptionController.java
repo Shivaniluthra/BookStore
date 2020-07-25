@@ -22,5 +22,15 @@ public class OrderExceptionController {
 	public ResponseEntity<Object> thirdException(NullArgumentException exception) {
 	      return new ResponseEntity<>("Null arguments passed", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
+//	@ExceptionHandler(value = { InvalidCustomerIdException.class })
+//	public String handleException(Exception ex) {
+//		return ex.getMessage();
+//	}
+	
+	@ExceptionHandler(value = { BookNotFoundException.class })
+	public String handleException2(Exception ex) {
+		return ex.getMessage();
+	}
 
 }

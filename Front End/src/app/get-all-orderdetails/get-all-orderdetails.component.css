@@ -98,3 +98,8 @@ b{
     padding: 20px;
     
 }
+
+#heading{
+    text-decoration: underline;
+    text-align: center;
+}

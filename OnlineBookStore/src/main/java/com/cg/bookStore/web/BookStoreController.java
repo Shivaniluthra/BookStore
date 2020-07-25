@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cg.bookStore.entity.BookInformation;
 import com.cg.bookStore.entity.CartInformation;
+import com.cg.bookStore.exceptions.BookNotFoundException;
+import com.cg.bookStore.exceptions.RecordNotFoundException;
 import com.cg.bookStore.service.BookStoreService;
 
 @CrossOrigin("*")
@@ -30,10 +33,17 @@ public class BookStoreController {
 			return service.viewCartByCustomerId(customerId);
 	}
 	
-	@PostMapping("/addcartitem")
-	public boolean addCartItem(@RequestBody CartInformation cart, 
-			HttpServletRequest request) {
-			return service.addCartItem(cart);
+	@CrossOrigin
+	@PostMapping("/addbooktocart/{bookid}/{customerid}/{status}")
+	public String addBookToCart(@PathVariable("bookid") int bookId, @PathVariable("customerid")int customerId,
+			@PathVariable("status")String status) throws BookNotFoundException {
+		return service.addBookToCart(bookId, customerId, status);
+	}
+	
+	@CrossOrigin
+	@GetMapping("/viewallbooks")
+	public List<BookInformation> viewdDiagnosisCentre() throws RecordNotFoundException {
+		return service.viewBooks();
 	}
 	
 	@DeleteMapping("/removecartitem/{cartid}")

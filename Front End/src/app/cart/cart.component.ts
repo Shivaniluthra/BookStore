@@ -11,11 +11,9 @@ import { CustomerInformation } from '../model/customer-information';
 })
 export class CartComponent implements OnInit {
 
-  updateForm: CartInformation= new CartInformation();
   cartProducts:CartInformation[]=[];
   customerid: number;
   i:number=0; quantity:number=0; total: number=0;
-  customer: CustomerInformation;
   link: string;
 
   constructor(private route: ActivatedRoute, private cartService: CartInformationServiceService, private router: Router) { }
@@ -24,7 +22,6 @@ export class CartComponent implements OnInit {
     this.customerid = this.route.snapshot.params['customerid'];
     console.log(this.customerid);
     this.getCartDetails();
-    this.customer.customerId = this.customerid;
   }
    
   getCartDetails() {
@@ -35,8 +32,11 @@ export class CartComponent implements OnInit {
     });
   }
 
-  updateCart(){
-    this.cartService.updateCart(this.updateForm).subscribe(data=>console.log(data));
+  updateCart(cartId: number, quantity: number){
+    this.cartService.updateCart(cartId,quantity).subscribe(data=>{
+      console.log(data);
+      this.getCartDetails();
+    });
   }
 
   removecartItem(cartId: number) {

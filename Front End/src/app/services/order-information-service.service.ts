@@ -20,4 +20,5 @@ export class OrderInformationServiceService {
   viewOrderById(orderId:number): Observable<any>{
     return this.http.get("http://localhost:8082/bookstore/searchOrder/"+orderId);
   }
+  
 }

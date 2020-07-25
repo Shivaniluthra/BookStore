@@ -17,16 +17,14 @@
         <li><input type="button" value="search" /></li>
         <li><a routerLink='/myOrders/101'>Orders</a></li>
         <li><a>Sign Out</a></li>
-        
-        <li><a routerLink ='/placeOrder/101'>Place Order</a></li>
         <li><a routerLink ='/cart'>Cart</a></li><br>
         <span>Welcome,(User)</span>
     </ul>
   </header>
   <main>
-  <div id="center">
-    <div style="text-align:center; font-size: large;"><b>Review Your Order Details</b><button id="btn" class="btn btn-primary" (click)="edit()">Edit Details</button></div>
+    <h2 id="heading">Review Your Order Details<button id="btn" class="btn btn-primary" (click)="edit()">Edit Details</button></h2>
     <br>    
+  <div id="center">
     <table class="table table-dark">
             <thead>
                 <tr>

@@ -1,0 +1,29 @@
+<section style="min-height: 650px;">
+
+    <section *ngIf="!newFlag">
+        <div class="p-2">
+            <h2>Home diagnosis Testing kits :</h2>
+            <hr>
+        </div>
+        <div class="p-2"><a class="btn btn-info text-white" (click)="viewBook()">View books</a></div>
+    </section>
+    <section class="col-md-12 mx-auto" *ngIf="viewBookFlag">
+        <h2 class="text-center">Books</h2>
+        <table class="table table-primary table-striped table-hover col-md-10 mx-auto mt-3">
+            <tr>
+                <!-- <th>Image</th> -->
+                <th>Book ID</th>
+                <th>Book Name</th>
+                <th>Amount</th>
+            </tr>
+            <tr *ngFor="let b of books">
+                <!-- <td><img src="assets/img/{{t.testId}}.jpg" height="200" width="250" /></td> -->
+                <td>{{b.bookId}}</td>
+                <td>{{b.title}}</td>
+                <td>{{b.price |currency:'INR'}}</td>
+                <td><a class="btn btn-primary" (click)=addBookToCart(b.bookId)>Add to Cart</a></td>
+            </tr>
+        </table>
+    </section>
+
+</section>

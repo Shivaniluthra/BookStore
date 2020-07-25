@@ -96,3 +96,8 @@ b{
 #gap{
     margin: 10px;
 }
+
+#heading{
+    text-decoration: underline;
+    text-align: center;
+}

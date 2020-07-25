@@ -8,6 +8,7 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
+import com.cg.bookStore.entity.BookInformation;
 import com.cg.bookStore.entity.CartInformation;
 import com.cg.bookStore.entity.OrderInformation;
 
@@ -33,12 +34,6 @@ public class BookStoreDaoImpl implements BookStoreDao{
 		return query.getResultList();
 	}
 	
-	@Override 
-	public boolean addCartItem(CartInformation cart) {
-		em.persist(cart);
-		return true;
-	}
-	
 	@Override
 	public boolean removeCartItem(CartInformation cart) {
 		em.remove(cart);
@@ -52,9 +47,15 @@ public class BookStoreDaoImpl implements BookStoreDao{
 
 	@Override
 	public boolean updateCartQuantity(CartInformation cart) {
-		em.merge(cart);
+		em.persist(cart);
 		return true;
 	}
+
+	@Override
+		public String addBookToCart(CartInformation cart) {
+			em.persist(cart);
+			return "Book Added To Cart Successfully";
+		}
 	
 	@Override
 	public List<OrderInformation> viewOrderByCustomerId(int customerId) {
@@ -64,6 +65,17 @@ public class BookStoreDaoImpl implements BookStoreDao{
 		return query.getResultList();
 	}
 	
+
+	@Override
+		public List<BookInformation> viewBooks() {
+			TypedQuery<BookInformation> query = em.createQuery("from BookInformation", BookInformation.class);
+			return query.getResultList();
+		}
+	
+	@Override
+	public BookInformation getBook(int bookId) {
+		return em.find(BookInformation.class, bookId);
+	}
 	
 		
 }

@@ -92,3 +92,7 @@ b{
     text-align: right;
     align-content: center;
 }
+#heading{
+    text-decoration: underline;
+    text-align: center;
+}

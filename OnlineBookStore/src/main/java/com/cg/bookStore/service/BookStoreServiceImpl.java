@@ -9,11 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cg.bookStore.dao.BookStoreDao;
 import com.cg.bookStore.dao.OrderDao;
+import com.cg.bookStore.entity.BookInformation;
 import com.cg.bookStore.entity.CartInformation;
 import com.cg.bookStore.entity.OrderInformation;
+import com.cg.bookStore.exceptions.BookNotFoundException;
 import com.cg.bookStore.exceptions.InvalidQuantityException;
 import com.cg.bookStore.exceptions.RecordAlreadyPresentException;
 import com.cg.bookStore.exceptions.RecordNotFoundException;
+import com.cg.bookStore.util.BookStoreConstants;
 
 @Service("bookstore")
 @Transactional
@@ -33,8 +36,29 @@ public class BookStoreServiceImpl implements BookStoreService{
 	
 	
 	@Override
-	public boolean addCartItem(CartInformation cart) {
-		return dao.addCartItem(cart);
+	public String addBookToCart(int bookId, int customerId, String status) throws BookNotFoundException{
+		BookInformation book = dao.getBook(bookId);
+		if(book == null) {
+			throw new BookNotFoundException(BookStoreConstants.BOOK_ID_EXCEPTION);
+		}
+		else {
+		CartInformation cartInfo = new CartInformation();
+		cartInfo.setBook(book);
+		cartInfo.setQuantity(1);
+		cartInfo.setCustomerId(customerId);
+		cartInfo.setStatus(status);
+		return dao.addBookToCart(cartInfo);
+		}
+	}
+	
+	@Override
+	public List<BookInformation> viewBooks() throws RecordNotFoundException {
+		
+		List<BookInformation> blist = dao.viewBooks();
+		if(blist.isEmpty())
+			throw new RecordNotFoundException();
+		//blist.sort((c1,c2)->c1.getBookId().compareTo(c2.getBookId()));
+		return blist;
 	}
 	
 	@Override
